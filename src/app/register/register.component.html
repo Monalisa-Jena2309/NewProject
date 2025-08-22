@@ -1,0 +1,60 @@
+<h2>Register</h2>
+
+<!-- Feedback message -->
+<div *ngIf="message" [style.color]="message.includes('❌') ? 'red' : 'green'" style="margin-bottom:10px;">
+  {{ message }}
+</div>
+
+<form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+  <!-- Username -->
+  <div>
+    <label>Username:</label>
+    <input
+      type="text"
+      name="username"
+      [(ngModel)]="user.username"
+      required
+      minlength="3"
+      #username="ngModel"
+    />
+    <div *ngIf="username.invalid && username.touched" style="color:red;">
+      Username must be at least 3 characters
+    </div>
+  </div>
+
+  <!-- Email -->
+  <div>
+    <label>Email:</label>
+    <input
+      type="email"
+      name="email"
+      [(ngModel)]="user.email"
+      required
+      #email="ngModel"
+    />
+    <div *ngIf="email.invalid && email.touched" style="color:red;">
+      Enter a valid email
+    </div>
+  </div>
+
+  <!-- Password -->
+  <div>
+    <label>Password:</label>
+    <input
+      type="password"
+      name="password"
+      [(ngModel)]="user.password"
+      required
+      minlength="6"
+      #password="ngModel"
+    />
+    <div *ngIf="password.invalid && password.touched" style="color:red;">
+      Password must be at least 6 characters
+    </div>
+  </div>
+
+  <!-- Submit button -->
+  <button type="submit" [disabled]="registerForm.invalid || isLoading">
+    {{ isLoading ? 'Registering...' : 'Register' }}
+  </button>
+</form>

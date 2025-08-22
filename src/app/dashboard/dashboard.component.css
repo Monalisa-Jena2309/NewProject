@@ -1,0 +1,19 @@
+.dashboard {
+  text-align: center;
+  margin-top: 80px;
+}
+
+button {
+  background-color: #dc3545;
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: #a71d2a;
+}
