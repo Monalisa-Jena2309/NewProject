@@ -1,68 +1,157 @@
-.auth-container {
-  width: 350px;
-  margin: 60px auto;
-  padding: 30px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+/* Enhanced General Styling */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif; /* A more modern and elegant font */
+}
+
+/* Container */
+.login-container {
+  max-width: 420px; /* Slightly wider for a more spacious feel */
+  margin: 5vh auto;
+  padding: 2.5rem; /* Increased padding for better internal spacing */
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef); /* Lighter, more subtle gradient */
+  border-radius: 20px; /* More rounded corners for a softer look */
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15); /* A more pronounced, elevated shadow */
   text-align: center;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth hover transition */
 }
 
-.auth-container h2 {
-  margin-bottom: 20px;
-  color: #333;
+.login-container:hover {
+  transform: translateY(-5px); /* Adds a subtle lift on hover */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
 }
 
-.auth-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+/* Heading */
+.login-container h2 {
+  margin-bottom: 2rem;
+  color: #343a40; /* Darker, more professional heading color */
+  font-size: 2rem; /* Larger font size */
+  font-weight: 600; /* Bolder font weight */
+  letter-spacing: 1px; /* Improved readability */
+  position: relative;
 }
 
-.form-group {
+.login-container h2::after {
+  content: '';
+  position: absolute;
+  bottom: -0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px; /* Wider underline */
+  height: 4px;
+  background: #6c757d; /* A stylish, subtle underline color */
+  border-radius: 2px;
+}
+
+/* Form Fields */
+.login-container form div {
+  margin-bottom: 1.5rem; /* Increased spacing between form fields */
   text-align: left;
 }
 
-label {
+.login-container label {
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 0.5rem;
+  color: #495057;
   font-weight: 500;
-  color: #555;
+  transition: color 0.3s ease;
 }
 
-input {
+.login-container input {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
+  padding: 1rem; /* Larger padding for a more modern, touch-friendly field */
+  border: 1px solid #ced4da;
+  border-radius: 10px; /* More rounded corners */
+  font-size: 1rem;
+  background-color: #f1f3f5; /* Light gray background for a clean look */
+  transition: all 0.3s ease;
 }
 
-button {
-  background-color: #007bff;
-  color: #fff;
-  padding: 12px;
+.login-container input:focus {
+  border-color: #4dabf7; /* Brighter, more vibrant focus color */
+  box-shadow: 0 0 0 3px rgba(77, 171, 247, 0.25); /* Glow effect on focus */
+  outline: none;
+  background-color: #fff; /* White background on focus for contrast */
+}
+
+/* Buttons */
+.login-container button[type="submit"] {
+  width: 100%;
+  background: linear-gradient(45deg, #4dabf7, #6982f6); /* Vibrant blue-purple gradient */
+  color: white;
   border: none;
-  border-radius: 6px;
+  padding: 1rem 1.5rem; /* Larger padding */
+  border-radius: 10px;
   cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 1.1rem; /* Slightly larger font */
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 6px 15px rgba(105, 130, 246, 0.3); /* Soft shadow for a floating effect */
 }
 
-button:hover {
-  background-color: #0056b3;
+.login-container button[type="submit"]:hover {
+  transform: translateY(-3px); /* Lifts the button slightly */
+  box-shadow: 0 8px 20px rgba(105, 130, 246, 0.4); /* Deeper shadow on hover */
 }
 
-.switch {
-  margin-top: 10px;
-  font-size: 14px;
+.login-container button[type="submit"]:active {
+  transform: translateY(1px); /* A slight press down effect */
 }
 
-.switch a {
-  color: #007bff;
-  text-decoration: none;
+/* Register Link */
+.login-container p {
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  color: #6c757d;
 }
 
-.switch a:hover {
-  text-decoration: underline;
+.login-container p button {
+  background: none;
+  color: #6982f6; /* Matching the button gradient color */
+  border: none;
+  font-weight: 600; /* Bolder for emphasis */
+  cursor: pointer;
+  padding: 0;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.login-container p button::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #6982f6;
+  transition: width 0.3s ease-out; /* Smooth underline animation */
+}
+
+.login-container p button:hover {
+  color: #4dabf7;
+}
+
+.login-container p button:hover::after {
+  width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .login-container {
+    margin: 2vh 1rem;
+    padding: 1.5rem;
+  }
+
+  .login-container h2 {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+  }
 }
