@@ -17,30 +17,10 @@ export class RegisterComponent {
   message = '';
   errorMessage = '';
 
-  // ✅ Inject Router here
   constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit(form: NgForm) {
-    console.log('Form submitted!', this.user);
-
-    // Simple validation
-    if (!this.user.username || !this.user.email || !this.user.password) {
-      this.errorMessage = '❌ All fields are required!';
-      this.message = '';
-      return;
-    }
-
-    if (!this.validateEmail(this.user.email)) {
-      this.errorMessage = '❌ Please enter a valid email!';
-      this.message = '';
-      return;
-    }
-
-    if (this.user.password.length < 6) {
-      this.errorMessage = '❌ Password must be at least 6 characters!';
-      this.message = '';
-      return;
-    }
+    if (!form.valid) return;
 
     this.isLoading = true;
     this.message = '';
@@ -54,26 +34,32 @@ export class RegisterComponent {
         this.user = { username: '', email: '', password: '' };
         form.resetForm();
 
-        // ✅ Navigate to login page after successful registration
+        // go to login page
         this.router.navigate(['/login']);
       },
       error: err => {
         this.isLoading = false;
-        this.errorMessage =
-          err.error?.message || '❌ Registration failed. Please try again.';
+
+        // handle duplicate email (409 Conflict)
+        if (err.status === 409) {
+          this.errorMessage = '❌ This email already exists. Try logging in.';
+        }
+        // handle validation errors (400 Bad Request, backend sends field errors)
+        else if (err.status === 400 && typeof err.error === 'object') {
+          const messages = Object.values(err.error).join(' | ');
+          this.errorMessage = `❌ ${messages}`;
+        }
+        // fallback
+        else {
+          this.errorMessage = '❌ Registration failed. Please try again.';
+        }
+
         this.message = '';
         console.error('Registration error:', err);
       }
     });
   }
 
-  // Email validation regex
-  validateEmail(email: string): boolean {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email.toLowerCase());
-  }
-
-  // ✅ Separate method in case you have a "Go to Login" button
   goToLogin(): void {
     this.router.navigate(['/login']);
   }

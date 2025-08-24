@@ -1,11 +1,14 @@
 <div class="register-container">
   <h2 class="form-title">Register</h2>
 
-  <!-- Feedback message -->
-  <div *ngIf="message"
-       class="feedback-message"
-       [ngClass]="message.includes('❌') ? 'error' : 'success'">
+  <!-- Success -->
+  <div *ngIf="message" class="feedback-message success">
     {{ message }}
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="errorMessage" class="feedback-message error">
+    {{ errorMessage }}
   </div>
 
   <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
@@ -22,7 +25,8 @@
         #username="ngModel"
       />
       <div *ngIf="username.invalid && username.touched" class="validation-error">
-        Username must be at least 3 characters
+        <span *ngIf="username.errors?.['required']">Username is required</span>
+        <span *ngIf="username.errors?.['minlength']">Username must be at least 3 characters</span>
       </div>
     </div>
 
@@ -34,10 +38,12 @@
         name="email"
         [(ngModel)]="user.email"
         required
+        email
         #email="ngModel"
       />
       <div *ngIf="email.invalid && email.touched" class="validation-error">
-        Enter a valid email
+        <span *ngIf="email.errors?.['required']">Email is required</span>
+        <span *ngIf="email.errors?.['email']">Enter a valid email</span>
       </div>
     </div>
 
@@ -53,7 +59,8 @@
         #password="ngModel"
       />
       <div *ngIf="password.invalid && password.touched" class="validation-error">
-        Password must be at least 6 characters
+        <span *ngIf="password.errors?.['required']">Password is required</span>
+        <span *ngIf="password.errors?.['minlength']">Password must be at least 6 characters</span>
       </div>
     </div>
 
@@ -63,7 +70,6 @@
     </button>
   </form>
 
-  <!-- Back to login link -->
   <p>
     Already have an account? 
     <button (click)="goToLogin()">Login</button>

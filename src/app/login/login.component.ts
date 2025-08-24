@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { CommonModule } from '@angular/common';   // ⬅️ Add this
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, CommonModule],   // ⬅️ Include CommonModule
+  imports: [FormsModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -19,12 +19,8 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  onSubmit(form: any) {
-    if (!form.valid) {
-      this.errorMessage = '❌ All fields are required!';
-      this.message = '';
-      return;
-    }
+  onSubmit(form: NgForm) {
+    if (!form.valid) return;
 
     this.isLoading = true;
     this.errorMessage = '';
@@ -37,9 +33,13 @@ export class LoginComponent {
         this.errorMessage = '';
         this.router.navigate(['/dashboard']);
       },
-      error: () => {
+      error: err => {
         this.isLoading = false;
-        this.errorMessage = '❌ Login failed! Please check username/password.';
+        if (err.status === 401) {
+          this.errorMessage = '❌ Invalid username or password.';
+        } else {
+          this.errorMessage = '❌ Login failed! Please try again.';
+        }
         this.message = '';
       }
     });

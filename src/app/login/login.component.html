@@ -1,8 +1,9 @@
 <div class="login-container">
   <h2>Login</h2>
 
-  <!-- Feedback message -->
+  <!-- Success -->
   <div *ngIf="message" class="feedback-message success">{{ message }}</div>
+  <!-- Error -->
   <div *ngIf="errorMessage" class="feedback-message error">{{ errorMessage }}</div>
 
   <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
@@ -34,7 +35,8 @@
         #password="ngModel" 
       />
       <div *ngIf="password.invalid && password.touched" class="validation-error">
-        Password must be at least 6 characters
+        <span *ngIf="password.errors?.['required']">Password is required</span>
+        <span *ngIf="password.errors?.['minlength']">Password must be at least 6 characters</span>
       </div>
     </div>
 

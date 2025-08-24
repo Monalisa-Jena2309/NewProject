@@ -144,7 +144,7 @@ p {
 p button {
   background: none;
   border: none;
-  color: #2575fc; /* same blue as your theme */
+  color: #2575fc; 
   font-weight: 600;
   cursor: pointer;
  transition: width 0.3s ease-out;
