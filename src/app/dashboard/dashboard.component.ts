@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
@@ -16,39 +16,53 @@ export class DashboardComponent implements OnInit {
   userHello = '';
   adminHello = '';
   error = '';
+  isBrowser: boolean;
 
-  constructor(private router: Router, private auth: AuthService) {}
+  constructor(
+    private router: Router,
+    private auth: AuthService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    // ✅ Check if we are running in the browser (not server)
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
 
   ngOnInit(): void {
-    this.username = localStorage.getItem('username') || '';
-    this.role = localStorage.getItem('role') || '';
+    if (this.isBrowser) {
+      this.username = localStorage.getItem('username') || '';
+      this.role = localStorage.getItem('role') || '';
+    }
   }
 
   testUserHello() {
-    this.userHello = '';
-    this.adminHello = '';
-    this.error = '';
+    this.resetMessages();
     this.auth.getUserHello().subscribe({
       next: (res) => this.userHello = res,
-      error: (err) => this.error = `User Hello error: ${err.status}`
+      error: (err) => this.error = `❌ User Hello error: ${err.status}`
     });
   }
 
   testAdminHello() {
-    this.userHello = '';
-    this.adminHello = '';
-    this.error = '';
+    this.resetMessages();
     this.auth.getAdminHello().subscribe({
       next: (res) => this.adminHello = res,
-      error: (err) => this.error = `Admin Hello error: ${err.status}`
+      error: (err) => this.error = `❌ Admin Hello error: ${err.status}`
     });
   }
 
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
-    localStorage.removeItem('email');
-    localStorage.removeItem('role');
+    if (this.isBrowser) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('username');
+      localStorage.removeItem('email');
+      localStorage.removeItem('role');
+    }
     this.router.navigate(['/login']);
+  }
+
+  private resetMessages() {
+    this.userHello = '';
+    this.adminHello = '';
+    this.error = '';
   }
 }
