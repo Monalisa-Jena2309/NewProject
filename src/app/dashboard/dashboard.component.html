@@ -1,4 +1,13 @@
 <h2>Welcome to the Dashboard 🎉</h2>
-<p>You have successfully logged in.</p>
+<p>You are logged in as <b>{{ username }}</b> ({{ role }})</p>
 
-<button routerLink="/login">Logout</button>
+<div style="margin: 16px 0;">
+  <button (click)="testUserHello()">Test User Hello</button>
+  <button (click)="testAdminHello()">Test Admin Hello</button>
+</div>
+
+<p *ngIf="userHello">User API says: {{ userHello }}</p>
+<p *ngIf="adminHello">Admin API says: {{ adminHello }}</p>
+<p *ngIf="error" class="feedback-message error">{{ error }}</p>
+
+<button (click)="logout()">Logout</button>

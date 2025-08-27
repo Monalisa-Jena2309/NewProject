@@ -1,19 +1,10 @@
 <div class="register-container">
   <h2 class="form-title">Register</h2>
 
-  <!-- Success -->
-  <div *ngIf="message" class="feedback-message success">
-    {{ message }}
-  </div>
-
-  <!-- Error -->
-  <div *ngIf="errorMessage" class="feedback-message error">
-    {{ errorMessage }}
-  </div>
+  <div *ngIf="message" class="feedback-message success">{{ message }}</div>
+  <div *ngIf="errorMessage" class="feedback-message error">{{ errorMessage }}</div>
 
   <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
-    
-    <!-- Username -->
     <div>
       <label>Username</label>
       <input
@@ -30,7 +21,6 @@
       </div>
     </div>
 
-    <!-- Email -->
     <div>
       <label>Email</label>
       <input
@@ -47,7 +37,6 @@
       </div>
     </div>
 
-    <!-- Password -->
     <div>
       <label>Password</label>
       <input
@@ -64,14 +53,13 @@
       </div>
     </div>
 
-    <!-- Submit button -->
     <button type="submit" [disabled]="registerForm.invalid || isLoading">
       {{ isLoading ? 'Registering...' : 'Register' }}
     </button>
   </form>
 
   <p>
-    Already have an account? 
-    <button (click)="goToLogin()">Login</button>
+    Already have an account?
+    <button type="button" (click)="goToLogin()">Login</button>
   </p>
 </div>

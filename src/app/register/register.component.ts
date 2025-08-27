@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { AuthService } from '../auth.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-register',
@@ -27,35 +27,24 @@ export class RegisterComponent {
     this.errorMessage = '';
 
     this.authService.register(this.user).subscribe({
-      next: res => {
+      next: () => {
         this.isLoading = false;
         this.message = '✅ Registered successfully!';
-        this.errorMessage = '';
         this.user = { username: '', email: '', password: '' };
         form.resetForm();
-
-        // go to login page
         this.router.navigate(['/login']);
       },
-      error: err => {
+      error: (err) => {
         this.isLoading = false;
 
-        // handle duplicate email (409 Conflict)
         if (err.status === 409) {
           this.errorMessage = '❌ This email already exists. Try logging in.';
-        }
-        // handle validation errors (400 Bad Request, backend sends field errors)
-        else if (err.status === 400 && typeof err.error === 'object') {
+        } else if (err.status === 400 && typeof err.error === 'object') {
           const messages = Object.values(err.error).join(' | ');
           this.errorMessage = `❌ ${messages}`;
-        }
-        // fallback
-        else {
+        } else {
           this.errorMessage = '❌ Registration failed. Please try again.';
         }
-
-        this.message = '';
-        console.error('Registration error:', err);
       }
     });
   }

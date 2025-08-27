@@ -1,38 +1,33 @@
 <div class="login-container">
   <h2>Login</h2>
 
-  <!-- Success -->
   <div *ngIf="message" class="feedback-message success">{{ message }}</div>
-  <!-- Error -->
   <div *ngIf="errorMessage" class="feedback-message error">{{ errorMessage }}</div>
 
   <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
-    
-    <!-- Username -->
     <div>
       <label>Username</label>
-      <input 
-        type="text" 
-        name="username" 
-        [(ngModel)]="credentials.username" 
-        required 
-        #username="ngModel" 
+      <input
+        type="text"
+        name="username"
+        [(ngModel)]="credentials.username"
+        required
+        #username="ngModel"
       />
       <div *ngIf="username.invalid && username.touched" class="validation-error">
         Username is required
       </div>
     </div>
 
-    <!-- Password -->
     <div>
       <label>Password</label>
-      <input 
-        type="password" 
-        name="password" 
-        [(ngModel)]="credentials.password" 
-        required 
+      <input
+        type="password"
+        name="password"
+        [(ngModel)]="credentials.password"
+        required
         minlength="6"
-        #password="ngModel" 
+        #password="ngModel"
       />
       <div *ngIf="password.invalid && password.touched" class="validation-error">
         <span *ngIf="password.errors?.['required']">Password is required</span>
@@ -46,7 +41,7 @@
   </form>
 
   <p>
-    Don’t have an account? 
-    <button (click)="goToRegister()">Register</button>
+    Don’t have an account?
+    <button type="button" (click)="goToRegister()">Register</button>
   </p>
 </div>
