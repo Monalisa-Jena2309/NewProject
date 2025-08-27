@@ -1,19 +1,67 @@
 .dashboard {
   text-align: center;
-  margin-top: 80px;
+  margin-top: 60px;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
 }
 
+.dashboard h2 {
+  font-size: 28px;
+  margin-bottom: 12px;
+  color: #2c3e50;
+}
+
+.dashboard p {
+  font-size: 16px;
+  margin: 8px 0;
+}
+
+.feedback-message {
+  margin-top: 16px;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.feedback-message.error {
+  color: #a71d2a;
+  background-color: #f8d7da;
+  border: 1px solid #f5c2c7;
+}
+
+/* Button base style */
 button {
-  background-color: #dc3545;
-  color: #fff;
-  padding: 12px 20px;
+  padding: 10px 18px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 16px;
-  margin-top: 20px;
+  font-size: 15px;
+  font-weight: 500;
+  margin: 8px;
+  transition: 0.3s ease;
 }
 
-button:hover {
+/* Different button styles */
+button:nth-child(1) { /* Test User Hello */
+  background-color: #007bff;
+  color: white;
+}
+button:nth-child(1):hover {
+  background-color: #0056b3;
+}
+
+button:nth-child(2) { /* Test Admin Hello */
+  background-color: #28a745;
+  color: white;
+}
+button:nth-child(2):hover {
+  background-color: #1e7e34;
+}
+
+button:nth-child(3) { /* Logout */
+  background-color: #dc3545;
+  color: white;
+}
+button:nth-child(3):hover {
   background-color: #a71d2a;
 }
