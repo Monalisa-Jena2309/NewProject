@@ -27,24 +27,17 @@ export class LoginComponent {
     this.message = '';
 
     this.authService.login(this.credentials).subscribe({
-      next: (res) => {
+      next: () => {
         this.isLoading = false;
-        // Save token + user info from backend response
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('username', res.username);
-        localStorage.setItem('email', res.email);
-        localStorage.setItem('role', res.role);
-
         this.message = '✅ Login successful!';
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {
         this.isLoading = false;
-        if (err.status === 401) {
-          this.errorMessage = '❌ Invalid username or password.';
-        } else {
-          this.errorMessage = '❌ Login failed! Please try again.';
-        }
+        this.errorMessage =
+          err.status === 401
+            ? '❌ Invalid username or password.'
+            : '❌ Login failed! Please try again.';
       }
     });
   }

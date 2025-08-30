@@ -43,7 +43,7 @@ button {
 
 /* Different button styles */
 button:nth-child(1) { /* Test User Hello */
-  background-color: #007bff;
+  background-color: #78b0ec;
   color: white;
 }
 button:nth-child(1):hover {
@@ -51,7 +51,7 @@ button:nth-child(1):hover {
 }
 
 button:nth-child(2) { /* Test Admin Hello */
-  background-color: #28a745;
+  background-color: #496d52;
   color: white;
 }
 button:nth-child(2):hover {

@@ -23,40 +23,34 @@ export class DashboardComponent implements OnInit {
     private auth: AuthService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
-    // ✅ Check if we are running in the browser (not server)
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
   ngOnInit(): void {
     if (this.isBrowser) {
-      this.username = localStorage.getItem('username') || '';
-      this.role = localStorage.getItem('role') || '';
+      this.username = this.auth.getUsername();
+      this.role = this.auth.getRole();
     }
   }
 
   testUserHello() {
     this.resetMessages();
     this.auth.getUserHello().subscribe({
-      next: (res) => this.userHello = res,
-      error: (err) => this.error = `❌ User Hello error: ${err.status}`
+      next: (res) => (this.userHello = res),
+      error: (err) => (this.error = `❌ User Hello error: ${err.status}`)
     });
   }
 
   testAdminHello() {
     this.resetMessages();
     this.auth.getAdminHello().subscribe({
-      next: (res) => this.adminHello = res,
-      error: (err) => this.error = `❌ Admin Hello error: ${err.status}`
+      next: (res) => (this.adminHello = res),
+      error: (err) => (this.error = `❌ Admin Hello error: ${err.status}`)
     });
   }
 
   logout() {
-    if (this.isBrowser) {
-      localStorage.removeItem('token');
-      localStorage.removeItem('username');
-      localStorage.removeItem('email');
-      localStorage.removeItem('role');
-    }
+    this.auth.logout(); // ✅ centralized clear
     this.router.navigate(['/login']);
   }
 
